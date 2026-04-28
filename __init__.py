@@ -246,9 +246,10 @@ class UV_PT_island_pixel_snap(Panel):
         box = layout.box()
         box.label(text="Image Size", icon='IMAGE_DATA')
 
-        row = box.row(align=True)
-        row.prop(props, "image_width",  text="W")
-        row.prop(props, "image_height", text="H")
+        col = box.column(align=True)
+        col.use_property_decorate = False
+        col.prop(props, "image_width",  text="W")
+        col.prop(props, "image_height", text="H")
 
         # Quick presets
         col = box.column(align=True)
