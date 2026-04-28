@@ -190,8 +190,8 @@ class UV_OT_island_pixel_snap(Operator):
             self.report({'WARNING'}, "No mesh objects selected.")
             return {'CANCELLED'}
 
-        # Condition 2: at least one selected mesh is in Edit Mode
-        if not any(obj.mode == 'EDIT' for obj in selected):
+        # Condition 2: global editor mode must be Edit Mode
+        if context.mode != 'EDIT_MESH':
             self.report({'WARNING'}, "No selected mesh is in Edit Mode.")
             return {'CANCELLED'}
 
