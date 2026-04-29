@@ -10,26 +10,38 @@ from bpy.utils import register_class, unregister_class
 # ---------------------------------------------------------------------------
 
 
-def get_uv_islands(bm, uv_layer, use_sync):
-    """Return list of islands; each island is a list of BMLoops.
-    Only islands belonging to UV-selected faces are included.
-
-    Blender 4, sync off: BMLoopUV.select exists and is the correct signal.
-    Blender 4, sync on:  UV selection mirrors face selection; use face.select.
-    Blender 5:           BMLoopUV.select was removed; always use face.select.
+def use_face_select(has_loop_select, use_sync, uv_select_mode):
     """
+    Return True if face.select should be used instead of BMLoopUV.select.
+    Per-loop select flags are only reliably populated in Vertex select mode
+    on Blender 4 without sync. All other combinations use face.select.
+    """
+    if not has_loop_select:
+        return True   # Blender 5
+    if use_sync:
+        return True   # sync always mirrors face selection
+    if uv_select_mode != 'VERTEX':
+        return True   # Island/Edge/Face modes only set face.select reliably
+    return False
+
+
+def get_uv_islands(bm, uv_layer, use_sync, uv_select_mode):
+    """Return list of islands; each island is a list of BMLoops.
+    Only islands belonging to UV-selected faces are included."""
     visited = set()
     islands = []
 
-    # Detect Blender version by probing BMLoopUV for .select
     test_loop = next((l for f in bm.faces for l in f.loops), None)
     has_loop_select = (test_loop is not None and
                        hasattr(test_loop[uv_layer], "select"))
+    by_face = use_face_select(has_loop_select, use_sync, uv_select_mode)
 
     def face_uv_selected(face):
-        if has_loop_select and not use_sync:
-            return all(loop[uv_layer].select for loop in face.loops)
-        return face.select
+        if not face.select:
+            return False
+        if by_face:
+            return True
+        return all(loop[uv_layer].select for loop in face.loops)
 
     def grow_island(start_face):
         island_loops = []
@@ -74,13 +86,39 @@ def get_uv_islands(bm, uv_layer, use_sync):
 # Core snapping logic
 # ---------------------------------------------------------------------------
 
+def apply_uv_selection(bm, uv_layer, loops, use_sync, uv_select_mode, select):
+    """
+    Set UV selection state on a set of loops.
+    Blender 4: always write BMLoopUV.select/select_edge to avoid
+               touching face.select which bleeds into the 3D viewport.
+    Blender 5: BMLoopUV.select is gone; write face.select (no alternative).
+    Sync mode: face.select is the only meaningful signal in both versions.
+    """
+    loops = list(loops)
+    if not loops:
+        return
+
+    has_loop_select = hasattr(loops[0][uv_layer], "select")
+
+    if has_loop_select and not use_sync:
+        # Blender 4, no sync: write UV loop flags directly regardless of
+        # uv_select_mode to avoid touching face selection in the 3D viewport
+        for loop in loops:
+            loop[uv_layer].select = select
+            loop[uv_layer].select_edge = select
+    else:
+        # Blender 5 or sync on: face.select is the only option
+        faces = {loop.face for loop in loops}
+        for face in faces:
+            face.select = select
+
+
 def snap_islands_to_pixel(image_width, image_height, snap_mode='CORNER'):
     """
-    For every UV island in every selected mesh object,
-    snap the island's bounding-box center to the nearest pixel corner
-    or pixel center depending on snap_mode ('CORNER' or 'CENTER').
-    Works in both Edit Mode and Object Mode.
-    Returns the total number of islands processed.
+    Snap selected UV islands to the nearest pixel corner or center.
+    After snapping, deselects islands that didn't move and keeps only
+    the ones that did. If nothing moved, selection is unchanged.
+    Returns (total_found, total_moved).
     """
     objects = [obj for obj in bpy.context.selected_objects
                if obj.type == 'MESH' and obj.mode == 'EDIT']
@@ -90,19 +128,16 @@ def snap_islands_to_pixel(image_width, image_height, snap_mode='CORNER'):
 
     for obj in objects:
         me = obj.data
-        in_edit = (obj.mode == 'EDIT')
-
-        if in_edit:
-            bm = bmesh.from_edit_mesh(me)
-        else:
-            bm = bmesh.new()
-            bm.from_mesh(me)
-
+        bm = bmesh.from_edit_mesh(me)
         bm.faces.ensure_lookup_table()
         uv_layer = bm.loops.layers.uv.verify()
         use_sync = bpy.context.tool_settings.use_uv_select_sync
-        islands = get_uv_islands(bm, uv_layer, use_sync)
+        uv_select_mode = bpy.context.tool_settings.uv_select_mode
+        islands = get_uv_islands(bm, uv_layer, use_sync, uv_select_mode)
         total_found += len(islands)
+
+        moved_islands   = []
+        unmoved_islands = []
 
         for island_loops in islands:
             us = [loop[uv_layer].uv.x for loop in island_loops]
@@ -124,14 +159,17 @@ def snap_islands_to_pixel(image_width, image_height, snap_mode='CORNER'):
                 for loop in island_loops:
                     loop[uv_layer].uv.x += dx
                     loop[uv_layer].uv.y += dy
+                moved_islands.append(island_loops)
                 total_moved += 1
+            else:
+                unmoved_islands.append(island_loops)
 
-        if in_edit:
-            bmesh.update_edit_mesh(me)
-        else:
-            bm.to_mesh(me)
-            bm.free()
-            me.update()
+        # Update selection only when at least one island moved
+        if moved_islands:
+            for island_loops in unmoved_islands:
+                apply_uv_selection(bm, uv_layer, island_loops, use_sync, uv_select_mode, False)
+
+        bmesh.update_edit_mesh(me)
 
     return total_found, total_moved
 
