@@ -16,9 +16,7 @@ Start Blender:
   
 - Go to _Edit > Preferences_, select the _Add-ons_ tab, locate the drop down button on the top right, select `Install from disk...` and find the downloaded `.zip` file, select where it'll be installed and click `Install from disk`
 
-## How it works
-<img width="640" height="320" alt="uv_snap_diagram_bg" src="https://github.com/user-attachments/assets/a3442b14-a935-46d7-b2f1-0d1cacb0ee7e" />
-
+## How to use
 Once enabled, a panel called `UV Island Pixel Snap` can be found on the Blender's UV Editor sidebar (hotkey N by default).
 
 - Set _Image Size_
@@ -30,8 +28,11 @@ When `UV Sync Selection` is ON, the sidebar panel will note user to switch Selec
 
 Some times it requires multiple snaps for all the island to be at their most aligned state.
 
-## Details (summarized)
-Currently there are 2 files, `uv_island_pixel_snap_b4.py` and `uv_island_pixel_snap_b5.py`, each containing a version of operation for Blender 4 and 5.
+## Details (Claude summarized)
+<img width="640" height="320" alt="uv_snap_diagram_bg" src="https://github.com/user-attachments/assets/a3442b14-a935-46d7-b2f1-0d1cacb0ee7e" />
+
+### Main Files
+`uv_island_pixel_snap_b4.py` and `uv_island_pixel_snap_b5.py` each containing a version of operation for Blender 4 and 5.
 
 `__init__.py` checkes Blender version and which to use.
 
