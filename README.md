@@ -1,6 +1,6 @@
 [English](#uv-island-pixel-snap-1)
 # UV Island Pixel Snap
-一個用於將 UV island 的邊界框中心移動至所設定解析度中最接近像素位置的 Blender extension，此為透過向 Claude 反覆提示、測試而成。
+一個用於將 UV island 的邊界框中心移動至所設定解析度中最接近像素位置的 Blender 附加元件，此為透過向 Claude 反覆提示、測試而成。
 
 僅在 Blender 4.5 LTS 和 5.1 中測試，處理速度依所選取的 UV island 數量而異。
 
@@ -13,7 +13,7 @@
 
 - 將下載的`.zip`檔案拖曳放進 Blender 視窗內，選擇安裝位置，然後按下`OK`
 
-_或_
+  _或_
 
 - 前往`編輯 > 偏好設定`，選擇`附加元件`，找到該視窗右上角的下拉選單按鈕，選擇`從磁碟安裝...`，找到下載的`.zip`文件，選擇安裝位置，然後按一下`從磁碟安裝`
 
