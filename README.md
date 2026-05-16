@@ -18,15 +18,20 @@
 - 前往`編輯 > 偏好設定`，選擇`附加元件`，找到該視窗右上角的下拉選單按鈕，選擇`從磁碟安裝...`，找到下載的`.zip`文件，選擇安裝位置，點擊`從磁碟安裝`
 
 ## 使用方法
-啟用後，Blender UV 編輯器側邊欄（預設快速鍵為 N）上會出現一個名為「UV Island Pixel Snap」的面板
+- 附加元件啟用後，UV 編輯器側邊欄（預設快速鍵為「N」）上會出現一個「UV Island Pixel Snap」面板
 
-- 設定影像大小、選擇 UV island、調整吸附模式選項
+- 在當中設定影像大小、調整吸附模式選項，並選擇 UV island
 
-- 點擊`兩者 | X | Y`其中一按鈕執行
+- 點擊當中`兩者`、`X`、`Y`其中一按鈕執行
 
-啟用`UV 同步選取`後，此面板底部會提示將`選取模式`切換為`面`。
+> [!NOTE]
+> 當 UV island 於最對齊狀態時，畫面底部的狀態列中將短暫提示：<img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
 
-有時需要執行多次才能將 UV island 移動至最佳對齊狀態。
+> [!NOTE]
+> 啟用`UV 同步選取`後，此附加元件的側邊欄面板底部會提示將`選取模式`切換為`面`。
+
+> [!NOTE]
+> 有時要執行多次才會移動 UV island 至最對齊狀態。
 
 # UV Island Pixel Snap
 A Blender extension to snap UV island bounding box centers to the nearest pixel of a specific image resolution, built through iterative prompting and testing with Claude.
@@ -47,15 +52,20 @@ Start Blender:
 - Go to _Edit > Preferences_, select the _Add-ons_ tab, locate the drop down button on the top right, select `Install from disk...` and find the downloaded `.zip` file, select where it'll be installed and click `Install from disk`
 
 ## How to use
-Once enabled, a panel called `UV Island Pixel Snap` can be found on the Blender's UV Editor sidebar (hotkey N by default).
+- Once the extension is enabled, a `UV Island Pixel Snap` panel can be found on UV Editor's sidebar (hotkey N by default)
 
-- Set _Image Size_, select desired islands, configure _Snap Mode_
+- Set _Image Size_ and configure _Snap Mode_, then select desired islands
 
-- Click one of the `Both | X | Y` buttons
+- Click one of the `Both`,`X`,`Y` buttons to start the operation
 
-When `UV Sync Selection` is ON, the sidebar panel will note user to switch Select Mode to Face.
+> [!NOTE]
+> When UV islands are at their most aligned state, its hinted temporarily in the status bar at the bottom of the screen: <img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
 
-Some times it requires multiple snaps for all the island to be at their most aligned state.
+> [!NOTE]
+> When `UV Sync Selection` is ON, the extension's sidebar panel will note to switch Select Mode to Face.
+
+> [!NOTE]
+> Sometimes it needs multiple snaps for the island to be at their most aligned state.
 
 ## Details (Claude summarized)
 <img width="640" height="320" alt="uv_snap_diagram_bg" src="https://github.com/user-attachments/assets/a3442b14-a935-46d7-b2f1-0d1cacb0ee7e" />
