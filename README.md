@@ -25,13 +25,13 @@
 - 點擊當中`兩者`、`X`、`Y`其中一按鈕執行
 
 > [!NOTE]
-> 當 UV island 於最對齊狀態，按下按鈕時，畫面底部的狀態列中將短暫提示：<img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
+> 有時要執行多次才會移動 UV island 至最對齊狀態。
 
 > [!NOTE]
 > 啟用`UV 同步選取`後，此附加元件的側邊欄面板底部會提示將`選取模式`切換為`面`。
 
 > [!NOTE]
-> 有時要執行多次才會移動 UV island 至最對齊狀態。
+> 當 UV island 於最對齊狀態，按下按鈕時，畫面底部的狀態列中將短暫提示：<img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
 
 # UV Island Pixel Snap
 A Blender extension to snap UV island bounding box centers to the nearest pixel of a specific image resolution, built through iterative prompting and testing with Claude.
@@ -59,13 +59,13 @@ Start Blender:
 - Click one of the `Both`,`X`,`Y` buttons to start the operation
 
 > [!NOTE]
-> When UV islands are at their most aligned state, the operation will show temporarily hint in the status bar at the bottom of the screen: <img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
-
-> [!NOTE]
-> When `UV Sync Selection` is ON, the extension's sidebar panel will note to switch Select Mode to Face.
-
-> [!NOTE]
 > Sometimes it needs multiple snaps for the island to be at their most aligned state.
+
+> [!NOTE]
+> When `UV Sync Selection` is ON, the extension's sidebar panel will note to switch `Select Mode` to `Face`.
+
+> [!NOTE]
+> When UV islands are at their most aligned state, the operation will show temporarily hint in the status bar at the bottom of the screen: <img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
 
 # Details (Claude summarized)
 <img width="640" height="320" alt="uv_snap_diagram_bg" src="https://github.com/user-attachments/assets/a3442b14-a935-46d7-b2f1-0d1cacb0ee7e" />
