@@ -20,13 +20,9 @@
 ## 使用方法
 啟用後，Blender UV 編輯器側邊欄（預設快速鍵為 N）上會出現一個名為「UV Island Pixel Snap」的面板
 
-- 設定影像大小
+- 設定影像大小、選擇 UV island、調整吸附模式選項
 
-- 選擇 UV island
-
-- 調整吸附模式
-
-- 點選按鈕執行
+- 點擊`兩者 | X | Y`其中一按鈕執行
 
 啟用`UV 同步選取`後，此面板底部會提示將`選取模式`切換為`面`。
 
@@ -53,10 +49,9 @@ Start Blender:
 ## How to use
 Once enabled, a panel called `UV Island Pixel Snap` can be found on the Blender's UV Editor sidebar (hotkey N by default).
 
-- Set _Image Size_
-- Select desired islands
-- Configure _Snap Mode_
-- Snap
+- Set _Image Size_, select desired islands, configure _Snap Mode_
+
+- Click one of the `Both | X | Y` buttons
 
 When `UV Sync Selection` is ON, the sidebar panel will note user to switch Select Mode to Face.
 
