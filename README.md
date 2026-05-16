@@ -25,7 +25,7 @@
 - 點擊當中`兩者`、`X`、`Y`其中一按鈕執行
 
 > [!NOTE]
-> 當 UV island 於最對齊狀態時，畫面底部的狀態列中將短暫提示：<img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
+> 當 UV island 於最對齊狀態，按下按鈕時，畫面底部的狀態列中將短暫提示：<img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
 
 > [!NOTE]
 > 啟用`UV 同步選取`後，此附加元件的側邊欄面板底部會提示將`選取模式`切換為`面`。
@@ -59,7 +59,7 @@ Start Blender:
 - Click one of the `Both`,`X`,`Y` buttons to start the operation
 
 > [!NOTE]
-> When UV islands are at their most aligned state, its hinted temporarily in the status bar at the bottom of the screen: <img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
+> When UV islands are at their most aligned state, the operation will show temporarily hint in the status bar at the bottom of the screen: <img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
 
 > [!NOTE]
 > When `UV Sync Selection` is ON, the extension's sidebar panel will note to switch Select Mode to Face.
