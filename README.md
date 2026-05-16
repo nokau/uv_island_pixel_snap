@@ -1,4 +1,4 @@
-[English](#uv-island-pixel-snap-1)
+[English readme](#uv-island-pixel-snap-1) | [Details (Claude summarized)](#details-claude-summarized)
 # UV Island Pixel Snap
 一個用於將 UV island 的邊界框中心移動至所設定解析度中最接近像素位置的 Blender 附加元件，此為透過向 Claude 反覆提示、測試而成。
 
@@ -67,32 +67,32 @@ Start Blender:
 > [!NOTE]
 > Sometimes it needs multiple snaps for the island to be at their most aligned state.
 
-## Details (Claude summarized)
+# Details (Claude summarized)
 <img width="640" height="320" alt="uv_snap_diagram_bg" src="https://github.com/user-attachments/assets/a3442b14-a935-46d7-b2f1-0d1cacb0ee7e" />
 
-### Main Files
+## Main Files
 `uv_island_pixel_snap_b4.py` and `uv_island_pixel_snap_b5.py` each containing a version of operation for Blender 4 and 5.
 
-`__init__.py` checkes Blender version and which to use.
+`__init__.py` checks Blender version and which to use.
 
-### What's the same in both
+## What's the same in both
 The entire snap pipeline is identical — the 5-pass structure, bounding box math, pixel corner/center formula, axis mode, merge overlapping with convex hull + SAT, the operator/panel/properties classes, and all the feedback messages.
 
-### Where they split
+## Where they split
 #### Selection reading (`face_has_selection`)
-B4 uses `loop[uv_layer].select` — a flag that lives directly on the UV loop data, granular per corner, works across all UV select modes. face.select is always checked first as a staleness gate since 3D viewport clicks clear it reliably even when UV flags linger.
+B4 uses `loop[uv_layer].select` — a flag that lives directly on the UV loop data, granular per corner, works across all UV select modes. `face.select` is always checked first as a staleness gate since 3D viewport clicks clear it reliably even when UV flags linger.
 
-B5 removed `loop[uv_layer].select` entirely. The replacement is `loop.uv_select_vert` — a proper attribute on the loop itself, added in Blender 5.0 per the release notes. With sync off it correctly distinguishes islands where face.select spreads mesh-wide. With sync on, face.select is used directly since A key and mesh-level selections update it reliably but don't always update `uv_select_vert` immediately.
+B5 removed `loop[uv_layer].select` entirely. The replacement is `loop.uv_select_vert` — a proper attribute on the loop itself, added in Blender 5.0 per the release notes. With sync off it correctly distinguishes islands where `face.select` spreads mesh-wide. With sync on, `face.select` is used directly since 'A' key and mesh-level selections update it reliably but don't always update `uv_select_vert` immediately.
 
-#### Selection writing (`apply_uv_selection`)
+### Selection writing (`apply_uv_selection`)
 B4 writes `loop[uv_layer].select` and `loop[uv_layer].select_edge` directly, keeping everything contained in the UV editor without bleeding into the 3D viewport face selection.
 
-B5 writes via `loop.uv_select_vert_set()` when sync is off — the proper B5 write method. When sync is on, it falls back to face.select since that's what Blender uses as the authoritative signal in sync mode.
+B5 writes via `loop.uv_select_vert_set()` when sync is off — the proper B5 write method. When sync is on, it falls back to `face.select` since that's what Blender uses as the authoritative signal in sync mode.
 
-#### Pass 5 flush
+### Pass 5 flush
 B4 just calls `bmesh.update_edit_mesh(me)` — nothing else. `select_flush` spreads selection incorrectly so it's skipped entirely, and none of the B5 UV sync methods exist in B4.
 
-B5 calls `bm.uv_select_sync_from_mesh()` before `update_edit_mesh` when sync is on — this pushes face.select into the UV editor's selection state. With sync off it's skipped because `uv_select_vert_set` handles everything directly and `uv_select_sync_from_mesh` would spread selection mesh-wide.
+B5 calls `bm.uv_select_sync_from_mesh()` before `update_edit_mesh` when sync is on — this pushes `face.select` into the UV editor's selection state. With sync off it's skipped because `uv_select_vert_set` handles everything directly and `uv_select_sync_from_mesh` would spread selection mesh-wide.
 
-#### Panel warnings
+### Panel warnings
 Both files now share the same logic — silent when sync is off (both versions work reliably across all UV select modes in that state), and shows the UV Sync ON indicator with a Face mode warning when sync is on.
