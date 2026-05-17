@@ -17,7 +17,7 @@
 
 - 前往`編輯 > 偏好設定`，選擇`附加元件`，找到該視窗右上角的下拉選單按鈕，選擇`從磁碟安裝...`，找到下載的`.zip`文件，選擇安裝位置，點擊`從磁碟安裝`
 
-## 使用方法
+## 使用
 - 附加元件啟用後，UV 編輯器側邊欄（預設快速鍵為「N」）上會出現一個「UV Island Pixel Snap」面板
 
 - 在當中設定影像大小、調整吸附模式選項，並選擇 UV island
@@ -45,11 +45,11 @@ Download the `.zip` file from the latest [Releases](https://github.com/nokau/uv-
 
 Start Blender:
 
-- Drag the file and drop it within blender's window, select where it'll be installed and click `OK`
+- Drag the file and drop it within Blender, select where it'll be installed and click `OK`
 
   _OR_
   
-- Go to _Edit > Preferences_, select the _Add-ons_ tab, locate the drop down button on the top right, select `Install from disk...` and find the downloaded `.zip` file, select where it'll be installed and click `Install from disk`
+- Go to `Edit > Preferences`, select the `Add-ons` tab, locate the drop down button on the top right, select `Install from disk...` and find the downloaded `.zip` file, select where it'll be installed and click `Install from disk`
 
 ## How to use
 - Once the extension is enabled, a `UV Island Pixel Snap` panel can be found on UV Editor's sidebar (hotkey N by default)
@@ -65,7 +65,7 @@ Start Blender:
 > When `UV Sync Selection` is ON, the extension's sidebar panel will note to switch `Select Mode` to `Face`.
 
 > [!NOTE]
-> When UV islands are at their most aligned state, the operation will show temporarily hint in the status bar at the bottom of the screen: <img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
+> When UV islands are at their most aligned state, pressing the buttons results in this hint appearing temporarily in the status bar at the bottom of the screen: <img width="362" height="24" alt="screen2" src="https://github.com/user-attachments/assets/53b89495-42db-46b2-9daf-69624a51916e" />
 
 # Details (Claude summarized)
 <img width="640" height="320" alt="uv_snap_diagram_bg" src="https://github.com/user-attachments/assets/a3442b14-a935-46d7-b2f1-0d1cacb0ee7e" />
